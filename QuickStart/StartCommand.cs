@@ -19,12 +19,12 @@ namespace QuickStart
 
         public override List<Argument> Arguments()
         {
-            return new List<Argument>() { new Argument(new string[] { "noPower" }) };
+            return new List<Argument>() { new Argument(new string[] { "Power" }) };
         }
 
         public override string[] UsageExamples()
         {
-            return new string[] { $"/{CommandAliases()[0]} [noPower]\n" };
+            return new string[] { $"/{CommandAliases()[0]} [Power]\n" };
         }
 
         public override void Execute(string arguments)
@@ -32,15 +32,12 @@ namespace QuickStart
             if (!PhotonNetwork.IsMasterClient || !GameSessionManager.InHub) return;
 
             HubQuestManager questManager = HubQuestManager.Instance;
-            PowerOnPatches.powerOn = true;
+            PowerOnPatches.powerOn = false;
 
             string[] args = arguments.Split(' ');
-            if (args.Length > 0)
+            if (args.Length > 0 && args[0].ToLower() == "power")
             {
-                if (args[0] == "noPower")
-                {
-                    PowerOnPatches.powerOn = false;
-                }
+                PowerOnPatches.powerOn = true;
             }
 
             questManager.StartQuest(questManager.SelectedQuest ?? questManager.Quests[0]);
