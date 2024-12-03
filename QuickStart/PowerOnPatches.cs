@@ -43,7 +43,7 @@ namespace QuickStart
             static void Start(CentralShipComputerModule __instance)
             {
                 if (!PhotonNetwork.IsMasterClient || !powerOn) return;
-                AbstractCarryableObject homunculus = (AbstractCarryableObject)ObjectFactory.InstantiateSpaceObjectByGUID(new GUIDUnion("e1bdce573e8182b4d95aacb841301d7c"), __instance.transform.position, __instance.transform.rotation, null);
+                CarryableObject homunculus = (CarryableObject)ObjectFactory.InstantiateSpaceObjectByGUID(new GUIDUnion("e1bdce573e8182b4d95aacb841301d7c"), __instance.transform.position, __instance.transform.rotation, null);
                 __instance.CarryablesSockets[0].TryInsertCarryable(homunculus);
                 __instance.ControlledPowerSystem.IsOn.ForceChange(true);
                 powerOn = false;
