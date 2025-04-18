@@ -1,4 +1,5 @@
-﻿using Gameplay.Quests;
+﻿
+using Gameplay.Hub;
 using Photon.Pun;
 using ResourceAssets;
 using VoidManager.Chat.Router;
@@ -31,7 +32,7 @@ namespace QuickStart
             if (args.Length > 0 && int.TryParse(args[0], out int index))
             {
                 ShipLoadoutDataDef ship = ResourceAssetContainer<ShipLoadoutDataContainer, ShipLoadoutData, ShipLoadoutDataDef>.Instance.AssetDescriptions[index];
-                HubQuestManager.Instance.SelectShip(ship.AssetGuid.AsIntArray());
+                HubShipManager.Instance.SelectShip(ship.AssetGuid.AsIntArray());
                 Messaging.Notification($"Selected {ship.ShipContextInfo.HeaderText}: {ship}", default);
             }
         }

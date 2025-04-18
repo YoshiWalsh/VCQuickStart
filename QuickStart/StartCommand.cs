@@ -1,5 +1,7 @@
-﻿using Gameplay.Quests;
+﻿using Gameplay.Hub;
+using Gameplay.Quests;
 using Photon.Pun;
+using ResourceAssets;
 using System.Collections.Generic;
 using VoidManager.Chat.Router;
 
@@ -40,7 +42,16 @@ namespace QuickStart
                 PowerOnPatches.powerOn = true;
             }
 
-            questManager.StartQuest(questManager.SelectedQuest ?? questManager.Quests[0]);
+
+            if (HubShipManager.Instance.CurrentShipSelected == null)
+            {
+                ShipLoadoutDataDef ship = ResourceAssetContainer<ShipLoadoutDataContainer, ShipLoadoutData, ShipLoadoutDataDef>.Instance.AssetDescriptions[11]; //Default to destroyer lone sentry
+                HubShipManager.Instance.SelectShip(ship.AssetGuid.AsIntArray());
+            }
+            if (questManager.SelectedQuest == null) //Set to default values if no selected quest
+                HubQuestManager.Instance.SelectQuest(DataTable<QuestTable>.Instance.EndlessQuest.AssetGuid);
+
+            questManager.StartQuest(questManager.SelectedQuest, questManager.QuestStartType, questManager.questSeed, questManager.challengeSeed);
         }
     }
 }
